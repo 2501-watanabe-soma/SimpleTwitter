@@ -82,6 +82,12 @@ public class MessageDao {
 			ResultSet rs = ps.executeQuery();
 
 			List<Message> message = toMessages(rs);
+
+			// 該当idがない場合nullを返す
+			if (message.isEmpty()) {
+				return null;
+			}
+
 			return message;
 
 		} catch (SQLException e) {
