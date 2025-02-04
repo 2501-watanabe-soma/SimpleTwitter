@@ -65,7 +65,7 @@ public class MessageDao {
 		}
 	}
 
-	public List<Message> select(Connection connection, int editMessageId) {
+	public Message select(Connection connection, int editMessageId) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 		" : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -88,7 +88,7 @@ public class MessageDao {
 				return null;
 			}
 
-			return message;
+			return message.get(0);
 
 		} catch (SQLException e) {
 			log.log(Level.SEVERE, new Object() {}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);

@@ -65,7 +65,7 @@ public class EditServlet extends HttpServlet {
     	}
 
     	// MessageServiceのeditselectを呼び出す
-    	List<Message> editMessage = new MessageService().select(Integer.parseInt(editMessageId));
+    	Message editMessage = new MessageService().select(Integer.parseInt(editMessageId));
 
     	//idが存在しない場合トップ画面に遷移し、エラーメッセージを表示
     	if (editMessage == null) {
@@ -76,7 +76,7 @@ public class EditServlet extends HttpServlet {
     	}
 
     	// 出力するデータ・jspを指定、フォワード
-    	request.setAttribute("message", editMessage.get(0));
+    	request.setAttribute("message", editMessage);
     	request.getRequestDispatcher("edit.jsp").forward(request, response);
     }
 
@@ -92,14 +92,14 @@ public class EditServlet extends HttpServlet {
 
     	List<String> errorMessages = new ArrayList<String>();
 
+    	// beansに値をセット
+    	Message message = new Message();
+    	message.setText(editText);
+    	message.setId(editMessageId);
+
     	if (!isValid(editText, errorMessages)) {
     		// エラーメッセージ表示
     		request.setAttribute("errorMessages", errorMessages);
-
-    		// データを渡してedit.jspに表示
-    		Message message = new Message();
-        	message.setText(editText);
-        	message.setId(editMessageId);
 
     		request.setAttribute("message", message);
     		request.getRequestDispatcher("edit.jsp").forward(request, response);
@@ -107,10 +107,7 @@ public class EditServlet extends HttpServlet {
     		return;
     	}
 
-    	// beansにデータ、MessageServiceを呼び出し後、トップページに遷移
-    	Message message = new Message();
-    	message.setText(editText);
-    	message.setId(editMessageId);
+    	// MessageServiceを呼び出し後、トップページに遷移
     	new MessageService().update(message);
     	response.sendRedirect("./");
 
