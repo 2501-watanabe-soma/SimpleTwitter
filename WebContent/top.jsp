@@ -41,6 +41,12 @@
                 <c:remove var="errorMessages" scope="session" />
             </c:if>
 
+            <div class="date">
+            	<form action="./" method="get">
+            		<input name="startDate" value="${startDate}" id="date" type="date">～<input name="endDate" value="${endDate}" id="date" type="date">
+            		<input type="submit" value="絞り込み">
+            	</form>
+            </div>
             <div class="form-area">
                 <c:if test="${ isShowMessageForm }">
                     <form action="message" method="post">
@@ -74,6 +80,34 @@
                         		<input type="submit" value="編集">
                         	</form>
                         </c:if>
+                    </div>
+                    <div class="form-area">
+                    	<c:if test="${ not empty loginUser }">
+                    		<form action="comment" method="post">
+                    			<textarea name="text" cols="100" rows="5" class="tweet-box"></textarea>
+                    			<br />
+                    			<input name="messageId" value="${message.id}" id="id" type="hidden"/>
+                    			<input type="submit" value="返信"> (140文字まで)
+                    		</form>
+                    	</c:if>
+                    </div>
+                    <div class="comments">
+                    	<c:forEach items="${comments}" var="comment">
+                    		<div class="comment">
+                    			<div class="account-name">
+                    				<c:if test="${ comment.messageId == message.id }">
+                            			<span class="account">
+                            				<a href="./?user_id=<c:out value="${comment.userId}"/> ">
+                            					<c:out value="${comment.account}" />
+                            				</a>
+                            			</span>
+                            			<span class="name"><c:out value="${comment.name}" /></span>
+                            			<div class="text"><pre><c:out value="${comment.text}" /></pre></div>
+                            			<div class="date"><fmt:formatDate value="${comment.createdDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
+                            		</c:if>
+                        		</div>
+                    		</div>
+                    	</c:forEach>
                     </div>
                 </c:forEach>
             </div>

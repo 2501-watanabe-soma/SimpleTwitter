@@ -21,6 +21,7 @@
                     </ul>
                 </div>
             </c:if>
+            <c:remove var="errorMessages" scope="session" />
 
             <form action="login" method="post"><br />
                 <label for="accountOrEmail">アカウント名かメールアドレス</label>

@@ -4,6 +4,8 @@ import static chapter6.utils.CloseableUtil.*;
 import static chapter6.utils.DBUtil.*;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,7 +48,7 @@ public class MessageService {
             commit(connection);
         } catch (RuntimeException e) {
             rollback(connection);
-		log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+		    log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
             throw e;
         } catch (Error e) {
             rollback(connection);
@@ -57,12 +59,15 @@ public class MessageService {
         }
     }
 
-    public List<UserMessage> select(String userId) {
+    public List<UserMessage> select(String userId, String startDate, String endDate) {
 
   	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
           " : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
           final int LIMIT_NUM = 1000;
+
+          String startTime = null;
+          String endTime = null;
 
           Connection connection = null;
           try {
@@ -71,7 +76,21 @@ public class MessageService {
               if (!StringUtils.isEmpty(userId)) {
             	  id = Integer.parseInt(userId);
               }
-              List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM);
+
+              if (!StringUtils.isEmpty(startDate)) {
+            	  startTime = startDate + " " + "00:00:00";
+              } else {
+            	  startTime = "2025-01-01" + " " + "00:00:00";
+              }
+
+              if (!StringUtils.isEmpty(endDate)) {
+            	  endTime = endDate + " " + "23:59:59";
+              } else {
+            	  Date date = new Date();
+                  endTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
+              }
+
+              List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM, startTime, endTime);
               commit(connection);
 
               return messages;

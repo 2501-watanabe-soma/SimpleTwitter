@@ -39,7 +39,7 @@ public class MessageDao {
 		PreparedStatement ps = null;
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("INSERT INTO messages ( ");
+			sql.append("INSERT INTO messages (" );
 			sql.append("    user_id, ");
 			sql.append("    text, ");
 			sql.append("    created_date, ");
