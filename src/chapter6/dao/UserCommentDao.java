@@ -51,9 +51,7 @@ public class UserCommentDao {
 			sql.append(" FROM comments ");
 			sql.append(" INNER JOIN users ");
 			sql.append( "ON comments.user_id = users.id");
-
-
-			// コメントを降順に設定
+			// コメントを昇順に設定
 			sql.append(" ORDER BY created_date ASC " );
 
 			ps = connection.prepareStatement(sql.toString());

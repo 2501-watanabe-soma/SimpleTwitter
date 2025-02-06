@@ -78,13 +78,13 @@ public class MessageService {
               }
 
               if (!StringUtils.isEmpty(startDate)) {
-            	  startTime = startDate + " " + "00:00:00";
+            	  startTime = startDate + " 00:00:00";
               } else {
-            	  startTime = "2025-01-01" + " " + "00:00:00";
+            	  startTime = "2025-01-01" + " 00:00:00";
               }
 
               if (!StringUtils.isEmpty(endDate)) {
-            	  endTime = endDate + " " + "23:59:59";
+            	  endTime = endDate + " 23:59:59";
               } else {
             	  Date date = new Date();
                   endTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(date);
