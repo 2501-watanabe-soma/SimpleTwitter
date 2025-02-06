@@ -95,7 +95,7 @@
                     	<c:forEach items="${comments}" var="comment">
                     		<div class="comment">
                     			<div class="account-name">
-									<c:if test="${ comment.messageId == message.id }">
+                    				<c:if test="${ comment.messageId == message.id }">
                             			<span class="account">
                             				<a href="./?user_id=<c:out value="${comment.userId}"/> ">
                             					<c:out value="${comment.account}" />
@@ -104,7 +104,7 @@
                             			<span class="name"><c:out value="${comment.name}" /></span>
                             			<div class="text"><pre><c:out value="${comment.text}" /></pre></div>
                             			<div class="date"><fmt:formatDate value="${comment.createdDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
-									</c:if>
+                            		</c:if>
                         		</div>
                     		</div>
                     	</c:forEach>
