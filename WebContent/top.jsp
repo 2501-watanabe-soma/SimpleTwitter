@@ -94,7 +94,7 @@
                     <div class="comments">
                     	<c:forEach items="${comments}" var="comment">
                     		<div class="comment">
-								<div class="account-name">
+                    			<div class="account-name">
 									<c:if test="${ comment.messageId == message.id }">
 										<span class="account">
 											<a href="./?user_id=<c:out value="${comment.userId}"/> ">
